@@ -10,7 +10,8 @@ import (
 
 // RawGet return the corresponding Get response based on RawGetRequest's CF and Key fields
 func (server *Server) RawGet(_ context.Context, req *kvrpcpb.RawGetRequest) (*kvrpcpb.RawGetResponse, error) {
-	// Your Code Here (1).
+	// Done Your Code Here (1).
+
 	return nil, nil
 }
 
