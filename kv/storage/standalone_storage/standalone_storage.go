@@ -1,8 +1,10 @@
 package standalone_storage
 
 import (
+	"github.com/Connor1996/badger"
 	"github.com/pingcap-incubator/tinykv/kv/config"
 	"github.com/pingcap-incubator/tinykv/kv/storage"
+	"github.com/pingcap-incubator/tinykv/log"
 	"github.com/pingcap-incubator/tinykv/proto/pkg/kvrpcpb"
 	"time"
 )
@@ -11,6 +13,8 @@ import (
 // communicate with other nodes and all data is stored locally.
 type StandAloneStorage struct {
 	// Done Your Data Here (1).
+	Db *badger.DB
+
 	StoreAddr     string
 	Raft          bool
 	SchedulerAddr string
@@ -78,6 +82,14 @@ func NewStandAloneStorage(conf *config.Config) *StandAloneStorage {
 
 func (s *StandAloneStorage) Start() error {
 	// Your Code Here (1).
+	db, err := InitDb(s.DBPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	s.Db = db
+
+	log.Info("Create badger db success", *s)
+
 	return nil
 }
 
